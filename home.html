@@ -405,7 +405,7 @@
   
   
    // Recycle Center Map Logic
-    const map = L.map('map').setView([3.139, 101.6869], 13);
+    const map = L.map('map').setView([5.3363, 100.2810], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
     const geocoder = L.Control.Geocoder.nominatim();
@@ -454,10 +454,10 @@
         map.setView([latitude, longitude], 14);
         updateRecycleCenters(latitude, longitude);
       }, () => {
-        updateRecycleCenters(3.139, 101.6869);
+        updateRecycleCenters(5.3363, 100.2810);
       });
     } else {
-      updateRecycleCenters(3.139, 101.6869);
+      updateRecycleCenters(5.3363, 100.2810);
     }
 
     map.on('moveend', () => {
