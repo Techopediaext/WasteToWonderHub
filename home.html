@@ -359,14 +359,97 @@
   function mapPredictionToIdea(label){
     const L = (label||'').toLowerCase();
     const picks = [
-      {k:['bottle','plastic'], idea:'Turn into planters, bird feeders, eco‑bricks; recycle in plastics bin.'},
-      {k:['can','tin','aluminum'], idea:'Rinse and recycle; upcycle as lanterns or pen holders.'},
-      {k:['paper','newspaper'], idea:'Recycle to pulp; make seed pots or papier‑mâché.'},
-      {k:['cardboard','carton','box'], idea:'Flatten & recycle; reuse as organizers; compost if plain.'},
-      {k:['glass','jar','bottle (glass)'], idea:'Reuse jars; recycle color‑sorted; make mosaic or lamps.'},
-      {k:['textile','t‑shirt','fabric','cloth'], idea:'Make totes, rags, quilts; donate usable clothing.'},
-      {k:['battery','electronic','phone','laptop'], idea:'E‑waste: take to certified drop‑off; never bin it.'},
-      {k:['bag','film','wrapper'], idea:'Soft plastics: store and drop at designated collection points.'}
+     // {k:['bottle','plastic'], idea:'Turn into planters, bird feeders, eco‑bricks; recycle in plastics bin.'},
+     // {k:['can','tin','aluminum'], idea:'Rinse and recycle; upcycle as lanterns or pen holders.'},
+     // {k:['paper','newspaper'], idea:'Recycle to pulp; make seed pots or papier‑mâché.'},
+     // {k:['cardboard','carton','box'], idea:'Flatten & recycle; reuse as organizers; compost if plain.'},
+     // {k:['glass','jar','bottle (glass)'], idea:'Reuse jars; recycle color‑sorted; make mosaic or lamps.'},
+     // {k:['textile','t‑shirt','fabric','cloth'], idea:'Make totes, rags, quilts; donate usable clothing.'},
+     // {k:['battery','electronic','phone','laptop'], idea:'E‑waste: take to certified drop‑off; never bin it.'},
+     // {k:['bag','film','wrapper'], idea:'Soft plastics: store and drop at designated collection points.'},
+		
+		//7 OctEdit
+		// 🧴 PLASTICS
+    {k:['plastic bottle','bottle'], idea:'Cut & paint bottles to grow herbs, make bird feeders, or eco-bricks. Recycle in plastics bin.'},
+    {k:['bottle cap','cap'], idea:'Collect for art projects or drop off at plastic recycling centers.'},
+    {k:['plastic bag','bag','polybag'], idea:'Soft plastic — store and return to collection bins at supermarkets.'},
+    {k:['food container','plastic container'], idea:'Wash, reuse for storage; if cracked, recycle as PP plastic.'},
+    {k:['straw'], idea:'Avoid single-use; reuse for crafts or drop at soft plastic collection.'},
+    {k:['plastic cup'], idea:'Reuse for seed starters or art; recycle clean ones only.'},
+    {k:['plastic spoon','plastic fork','utensil'], idea:'Reuse or recycle if facility accepts; switch to metal/bamboo next time.'},
+	// 📄 PAPER & CARDBOARD
+    {k:['paper','newspaper','sheet'], idea:'Recycle to pulp; use for crafts, papier-mâché, or seed pots.'},
+    {k:['cardboard','carton','box'], idea:'Flatten & recycle; reuse for organizers or compost if plain.'},
+    {k:['book','booklet','brochure'], idea:'Donate usable books; recycle damaged ones as paper waste.'},
+    // 🥫 METAL
+    {k:['aluminum can','tin can','can'], idea:'Rinse and recycle; upcycle as lanterns or pen holders.'},
+    {k:['foil','metal lid','wrapper'], idea:'Clean aluminum foil can be recycled; reuse foil for art or crafts.'},
+	// 🍾 GLASS
+    {k:['glass bottle','glass jar','jar','glass'], idea:'Reuse jars for storage; recycle by color; craft into lamps or mosaics.'},
+    {k:['broken glass'], idea:'Handle safely, wrap securely before recycling or disposal.'},
+    // 💻 E-WASTE
+    {k:['battery'], idea:'Hazardous — take to e-waste collection points; never bin it.'},
+    {k:['mobile phone','cell phone','phone'], idea:'E-waste: donate or send to certified recyclers.'},
+    {k:['laptop','computer'], idea:'Refurbish or donate if working; send to e-waste facility.'},
+    {k:['charger','cable','wire'], idea:'Recycle as e-waste; avoid burning or throwing in bins.'},
+    {k:['remote'], idea:'Remove batteries and recycle device as e-waste.'},
+    // 🌿 ORGANIC
+    {k:['fruit peel','banana peel','orange peel'], idea:'Add to compost; provides nutrients for plants.'},
+    {k:['food waste','leftover','vegetable'], idea:'Compost organic food waste; avoid mixing with recyclables.'},
+    {k:['eggshell'], idea:'Crush and use in compost or as calcium for plants.'},
+    {k:['tea bag','coffee ground'], idea:'Compostable; excellent for soil enrichment.'},
+ 	// 👕 TEXTILE
+    {k:['t-shirt','shirt','jeans','cloth','fabric','textile'], idea:'Make tote bags, quilts, or donate usable clothes.'},
+    {k:['shoe'], idea:'Clean pairs can be donated; damaged ones go to textile recycling.'},
+    // ☣️ NON-RECYCLABLE / HAZARDOUS
+    {k:['styrofoam','foam'], idea:'Avoid use; not recyclable in most places.'},
+    {k:['diaper'], idea:'Dispose in general waste; not recyclable.'},
+    {k:['sanitary pad'], idea:'Wrap and discard in general waste; not recyclable.'},
+    {k:['mask'], idea:'Single-use mask — dispose safely in general waste.'},
+	// 🪵 WOOD & FURNITURE
+    {k:['wood','pallet','furniture','chopstick','pencil'], idea:'Reuse for crafts, shelves, or compost untreated wood. Avoid painted or laminated pieces.'},
+    // 🧱 CONSTRUCTION & DEMOLITION
+    {k:['brick','cement','tile','concrete'], idea:'Reuse for garden or construction fill. Send to building reuse center if available.'},
+    {k:['metal rod','pipe','rebar'], idea:'Can be sold or recycled as scrap metal.'},
+    // 🔁 RUBBER
+    {k:['tyre','tire','rubber band','glove'], idea:'Upcycle as planters, mats, or donate to tire recycling facilities.'},
+	 // 🏥 MEDICAL WASTE
+    {k:['syringe','medicine','bandage','test kit'], idea:'Hazardous — return to pharmacies or hospital disposal points.'},
+    // 🔋 BATTERIES & LIGHT BULBS
+    {k:['bulb','tube light','cfl','light'], idea:'Take to e-waste collection; contains mercury — never throw in general waste.'},
+    // 🌳 GARDEN WASTE
+    {k:['leaf','branch','grass','plant'], idea:'Compost or turn into mulch; supports zero-waste gardening.'},
+    // 🛢️ COOKING OIL / GREASE
+    {k:['oil','grease','butter'], idea:'Collect and recycle as biodiesel; never pour down sinks.'},
+    // 📦 COMPOSITE / MULTI-MATERIAL
+    {k:['tetra pak','juice box','chips packet','laminated wrapper'], idea:'Drop at special collection points; can be recycled into boards.'},
+ 	// 🧴 HAZARDOUS HOUSEHOLD
+    {k:['paint','bleach','spray','detergent'], idea:'Hazardous — deliver to special chemical waste collection.'},
+	 // 🚗 AUTOMOTIVE
+    {k:['car part','engine oil','tire','battery (car)'], idea:'Take to car service centers for proper recycling.'},
+    // 🧰 INDUSTRIAL WASTE
+    {k:['factory scrap','machine part','metal scrap'], idea:'Recycle through industrial or metal recyclers.'},
+    // 🌊 MARINE WASTE
+    {k:['fishing net','rope','buoy'], idea:'Recycle through marine waste programs; avoid ocean dumping.'},
+    // ⚗️ LABORATORY WASTE
+    {k:['chemical','vial','lab glass'], idea:'Hazardous; dispose only via licensed waste handlers.'},
+    // 🍽️ CERAMIC & PORCELAIN
+    {k:['ceramic','plate','tile','mug'], idea:'Reuse as garden edging or art; not recyclable curbside.'},
+    // 🛏️ FOAM & SPONGE
+    {k:['sponge','mattress','cushion','foam seat'], idea:'Send to furniture recyclers or reuse stuffing.'},
+    // 💿 DISCS & MEDIA
+    {k:['cd','dvd','disc'], idea:'Recycle via e-waste or creative reuse as decor.'},
+    // 📦 PACKAGING
+    {k:['bubble wrap','packing peanuts','parcel'], idea:'Reuse or return to courier stores for recycling.'},
+    // ♻️ BIOPLASTICS
+    {k:['bioplastic','compostable cup','pla'], idea:'Only compost in industrial facilities; not regular bins.'},
+    // 🔥 ASH & DUST
+    {k:['ash','dust'], idea:'Small amounts can go in compost; avoid large disposal.'},
+    // 🎨 CREATIVE / DIY
+    {k:['toy'], idea:'Repair, donate, or repurpose parts for crafts.'},
+    {k:['crayon','brush','art','craft'], idea:'Use scraps for creative upcycling or decoration.'},
+    {k:['decoration','bottle decoration'], idea:'Reuse materials creatively; inspire others to recycle through art.'}
+ 
     ];
     for(const p of picks){ if(p.k.some(w=>L.includes(w))) return p.idea; }
     return 'General tip: clean & sort materials; check local rules; prefer reuse or donation before recycling.';
