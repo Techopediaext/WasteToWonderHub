@@ -541,9 +541,25 @@
 
           let centers = data.elements.map(el => {
             const distance = map.distance([lat, lon], [el.lat, el.lon]) / 1000;
-            return { name: el.tags.name || 'Recycling Center', lat: el.lat, lon: el.lon, distance: distance.toFixed(2), address: el.tags['addr:street'] || 'Address not available' };
-          });
 
+			// Try multiple fields for name and address
+        	const name = el.tags.name 
+                  || el.tags.operator 
+                  || el.tags.brand 
+                  || el.tags.description 
+                  || 'Recycling Center';
+
+        	const address = el.tags['addr:street'] 
+                     || el.tags['addr:full'] 
+                     || el.tags['addr:place']
+                     || el.tags['addr:city']
+                     || el.tags.description
+                     || el.tags.operator
+                     || 'Address not found';
+          //  return { name: el.tags.name || 'Recycling Center', lat: el.lat, lon: el.lon, distance: distance.toFixed(2), address: el.tags['addr:street'] || 'Address not available' };
+         // });
+			return { name, lat: el.lat, lon: el.lon, distance: distance.toFixed(2), address };
+          });
           centers.sort((a, b) => a.distance - b.distance);
           centers = centers.slice(0, 10);
 
