@@ -18,6 +18,14 @@
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
 	  
 	.header-container {display: flex;align-items: center;justify-content: center;position: relative;}
+	  
+	@media (max-width: 600px) {
+		.header-container {flex-direction: column; align-items: center;}
+		.site-logo {position: static;transform: none;margin-bottom: 10px;
+					max-width: 100px; /* smaller on mobile */
+				   }
+		.header-text {text-align: center;}
+	}
 	.site-logo {position: absolute;left: 16px;top: 50%;transform: translateY(-50%);max-width: 120px;height: auto;filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));}
 
 	.header-text {text-align: center;}
