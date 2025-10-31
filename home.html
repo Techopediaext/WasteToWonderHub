@@ -174,7 +174,7 @@
     <!-- Ideas -->
     <section id="ideas">
       <h2>Recycling Ideas</h2>
-      <p class="muted">Creative ways to transform common materials. (Expand tutorials for how‑tos.)</p>
+      <p class="muted">Creative ways to transform common materials.</p>
       <div class="card-grid" id="ideasGrid"></div>
     </section>
 
@@ -671,8 +671,81 @@ const quizData = [
     options: ["Metal cans", "Food scraps", "Plastic bottles", "Glass jars"],
     answer: 1,
     explanation: "Food scraps can be composted to make natural fertilizer."
-  }
+  },
   // 👉 Add more questions here to reach 20+ in the pool
+{
+    q: "What is the main goal of recycling?",
+    options: ["To reduce pollution", "To produce more waste", "To use more resources", "To fill landfills"],
+    answer: 0,
+    explanation: "Recycling helps reduce pollution and conserve natural resources."
+  },
+  {
+    q: "Which type of energy is produced from waste in waste-to-energy plants?",
+    options: ["Nuclear energy", "Solar energy", "Electricity or heat", "Wind energy"],
+    answer: 2,
+    explanation: "Waste-to-energy plants convert waste materials into electricity or heat."
+  },
+  {
+    q: "Which material can be recycled indefinitely without losing quality?",
+    options: ["Plastic", "Glass", "Paper", "Wood"],
+    answer: 1,
+    explanation: "Glass can be recycled endlessly without losing purity or quality."
+  },
+  {
+    q: "Which of these helps reduce plastic pollution the most?",
+    options: ["Using reusable bottles", "Buying more plastic", "Burning plastic", "Throwing plastic away"],
+    answer: 0,
+    explanation: "Using reusable bottles cuts down the need for single-use plastics."
+  },
+  {
+    q: "Which bin should metal cans go into?",
+    options: ["Green", "Yellow", "Blue", "Red"],
+    answer: 1,
+    explanation: "Yellow bins are typically used for metal and plastic recyclables."
+  },
+  {
+    q: "What happens to waste that is not recycled?",
+    options: ["It disappears", "It turns into soil", "It ends up in landfills or the ocean", "It becomes compost"],
+    answer: 2,
+    explanation: "Unrecycled waste often ends up in landfills or pollutes the ocean."
+  },
+  {
+    q: "Which of the following is biodegradable?",
+    options: ["Banana peel", "Plastic cup", "Glass bottle", "Aluminum can"],
+    answer: 0,
+    explanation: "Banana peels are organic and decompose naturally."
+  },
+  {
+    q: "What does 'upcycling' mean?",
+    options: ["Turning waste into something of higher value", "Throwing away old items", "Downcycling materials", "Burning waste for energy"],
+    answer: 0,
+    explanation: "Upcycling creatively reuses materials to create higher-value products."
+  },
+  {
+    q: "Which of the following actions saves the most energy?",
+    options: ["Recycling aluminum cans", "Recycling paper", "Recycling glass", "Recycling plastic"],
+    answer: 0,
+    explanation: "Recycling aluminum saves up to 95% of the energy compared to producing new aluminum."
+  },
+  {
+    q: "Which country is known for having one of the highest recycling rates in the world?",
+    options: ["Germany", "Malaysia", "India", "USA"],
+    answer: 0,
+    explanation: "Germany consistently leads global recycling rankings."
+  },
+  {
+    q: "Why is it important to rinse containers before recycling?",
+    options: ["To reduce contamination", "To make them shiny", "To make them lighter", "It’s not necessary"],
+    answer: 0,
+    explanation: "Rinsing prevents contamination that can spoil an entire batch of recyclables."
+  },
+  {
+    q: "What is the main purpose of the 3R campaign?",
+    options: ["To reduce waste generation", "To promote more consumption", "To increase landfill size", "To encourage waste burning"],
+    answer: 0,
+    explanation: "The 3R campaign (Reduce, Reuse, Recycle) aims to minimize waste and protect the environment."
+  }
+	
 ];
 
 let quizQuestions = [];
@@ -847,7 +920,7 @@ function dropItem(e) {
 
     if (gamescore === window.currentGameItems.length) {
       scoreEl.innerHTML = `
-        🎉 You sorted all items correctly!<br>
+        🎉 You sorted items correctly!<br>
         ✅ Final Score: ${gamescore}<br>
         ❌ Wrong Attempts: ${wrongAttempts}<br>
         <button class='btn' onclick='renderGame()'>Play Again</button>
