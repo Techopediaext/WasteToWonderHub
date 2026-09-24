@@ -52,7 +52,28 @@
             color: #b8c7d9;
             font-size: 16px;
         }
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
 
+.logos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logos img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.title-area {
+    text-align: left;
+}
 
         /* =========================
            MAIN GAME CONTAINER
@@ -575,9 +596,20 @@
 
 
 <body>
-
-
 <header>
+    <div class="header-content">
+        <div class="logos">
+            <img src="MazInnovisionLogo.png" alt="MAZ Innovision">
+        </div>
+
+        <div class="title-area">
+            <h1>⚡ BANDWIDTH RUSH</h1>
+            <p>Can you keep the network running smoothly?</p>
+        </div>
+    </div>
+</header>
+
+<!-- <header>
 
     <h1>⚡ BANDWIDTH RUSH</h1>
 
@@ -585,7 +617,7 @@
         Can you keep the network running smoothly?
     </p>
 
-</header>
+</header> -->
 
 
 <div class="game-container">
