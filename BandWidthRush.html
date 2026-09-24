@@ -55,8 +55,9 @@
 .header-content {
     display: flex;
     align-items: center;
-    justify-content: center;
+  /*  justify-content: center;*/
     gap: 15px;
+    justify-content: space-between;
 }
 
 .logos {
@@ -70,11 +71,25 @@
     height: 70px;
     object-fit: contain;
 }
+.left-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
+.left-header img {
+    width: 82.5px;
+    height: 82.5px;
+    object-fit: contain;
+}
 .title-area {
     text-align: left;
 }
-
+.right-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
         /* =========================
            MAIN GAME CONTAINER
         ========================= */
@@ -606,6 +621,7 @@
             <h1>⚡ BANDWIDTH RUSH</h1>
             <p>Can you keep the network running smoothly?</p>
         </div>
+        <img class="right-logo" src="schoollogo.png" alt="MAZ International School">
     </div>
 </header>
 
