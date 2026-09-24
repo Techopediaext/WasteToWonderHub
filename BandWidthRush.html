@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bandwidth Rush</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #07111f;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #0c1b30;
+            border-bottom: 2px solid #1d3557;
+        }
+
+
+        header h1 {
+            font-size: 36px;
+            color: #4cc9f0;
+            margin-bottom: 6px;
+        }
+
+
+        header p {
+            color: #b8c7d9;
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           MAIN GAME CONTAINER
+        ========================= */
+
+        .game-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+
+        /* =========================
+           DASHBOARD
+        ========================= */
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+
+        .stat {
+            background: #0d2038;
+            border: 1px solid #21466e;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+        }
+
+
+        .stat h3 {
+            color: #8ea9c4;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+
+        .stat p {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+
+        #bandwidthValue {
+            color: #4cc9f0;
+        }
+
+
+        #demandValue {
+            color: #f9c74f;
+        }
+
+
+        #congestionValue {
+            color: #f94144;
+        }
+
+
+        #scoreValue {
+            color: #90be6d;
+        }
+
+
+        /* =========================
+           NETWORK AREA
+        ========================= */
+
+        .network {
+
+            position: relative;
+
+            height: 430px;
+
+            background:
+                linear-gradient(#0a1929 1px, transparent 1px),
+                linear-gradient(90deg, #0a1929 1px, transparent 1px);
+
+            background-size: 40px 40px;
+
+            border: 2px solid #21466e;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+        }
+
+
+        .network-title {
+
+            position: absolute;
+
+            top: 15px;
+            left: 20px;
+
+            font-size: 20px;
+
+            color: #cfe5ff;
+
+            z-index: 10;
+        }
+
+
+        /* =========================
+           DEVICES
+        ========================= */
+
+        .device {
+
+            position: absolute;
+
+            width: 80px;
+            height: 80px;
+
+            background: #102a45;
+
+            border: 2px solid #4cc9f0;
+
+            border-radius: 15px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 30px;
+
+            z-index: 5;
+        }
+
+
+        .device span {
+
+            font-size: 11px;
+
+            margin-top: 5px;
+
+            color: #c9d8e8;
+        }
+
+
+        .phone {
+            left: 30px;
+            top: 80px;
+        }
+
+
+        .laptop {
+            left: 30px;
+            top: 180px;
+        }
+
+
+        .tv {
+            left: 30px;
+            top: 280px;
+        }
+
+
+        /* =========================
+           SERVER
+        ========================= */
+
+        .server {
+
+            position: absolute;
+
+            right: 30px;
+            top: 155px;
+
+            width: 100px;
+            height: 120px;
+
+            background: #172f4b;
+
+            border: 2px solid #90be6d;
+
+            border-radius: 15px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 45px;
+
+            z-index: 5;
+        }
+
+
+        .server span {
+
+            font-size: 13px;
+
+            color: #c9d8e8;
+
+            margin-top: 8px;
+        }
+
+
+        /* =========================
+           INTERNET HIGHWAY
+        ========================= */
+
+        .highway {
+
+            position: absolute;
+
+            left: 120px;
+            right: 150px;
+
+            top: 185px;
+
+            height: 80px;
+
+            background: #182738;
+
+            border-top: 3px solid #596b7e;
+
+            border-bottom: 3px solid #596b7e;
+        }
+
+
+        .road-line {
+
+            position: absolute;
+
+            width: 100%;
+
+            height: 4px;
+
+            top: 35px;
+
+            background:
+
+                repeating-linear-gradient(
+                    to right,
+
+                    #f9c74f 0px,
+                    #f9c74f 30px,
+
+                    transparent 30px,
+                    transparent 60px
+                );
+
+            opacity: 0.8;
+        }
+
+
+        /* =========================
+           DATA PACKETS
+        ========================= */
+
+        .packet {
+
+            position: absolute;
+
+            width: 18px;
+            height: 18px;
+
+            border-radius: 50%;
+
+            background: #4cc9f0;
+
+            box-shadow:
+                0 0 12px #4cc9f0;
+
+            z-index: 3;
+        }
+
+
+        /* =========================
+           CONTROLS
+        ========================= */
+
+        .controls {
+
+            margin-top: 20px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        .control-panel {
+
+            background: #0d2038;
+
+            border: 1px solid #21466e;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+
+        .control-panel h2 {
+
+            margin-bottom: 15px;
+
+            color: #4cc9f0;
+        }
+
+
+        .control-panel label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #b8c7d9;
+        }
+
+
+        input[type="range"] {
+
+            width: 100%;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        button {
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            background: #4cc9f0;
+
+            color: #06111d;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-right: 8px;
+
+            margin-top: 5px;
+        }
+
+
+        button:hover {
+
+            transform: scale(1.03);
+        }
+
+
+        .danger {
+
+            background: #f94144;
+
+            color: white;
+        }
+
+
+        .success {
+
+            background: #90be6d;
+        }
+
+
+        /* =========================
+           STATUS MESSAGE
+        ========================= */
+
+        .status {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            background: #102a45;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            border: 2px solid transparent;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+
+        /* GREEN — SMOOTH */
+
+        .status.smooth {
+
+            background: #123b2a;
+
+            color: #90be6d;
+
+            border-color: #90be6d;
+        }
+
+
+        /* YELLOW — LIGHT */
+
+        .status.light {
+
+            background: #403612;
+
+            color: #f9c74f;
+
+            border-color: #f9c74f;
+        }
+
+
+        /* ORANGE — MODERATE */
+
+        .status.moderate {
+
+            background: #4a2d12;
+
+            color: #f8961e;
+
+            border-color: #f8961e;
+        }
+
+
+        /* RED — HEAVY / EMERGENCY */
+
+        .status.heavy {
+
+            background: #46151a;
+
+            color: #f94144;
+
+            border-color: #f94144;
+        }
+
+
+        /* =========================
+           EXPLANATION
+        ========================= */
+
+        .explanation {
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background: #0d2038;
+
+            border: 1px solid #21466e;
+
+            border-radius: 12px;
+        }
+
+
+        .explanation h2 {
+
+            color: #4cc9f0;
+
+            margin-bottom: 10px;
+        }
+
+
+        .explanation p {
+
+            line-height: 1.6;
+
+            color: #c8d5e3;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .dashboard {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .controls {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .network {
+
+                height: 400px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>⚡ BANDWIDTH RUSH</h1>
+
+    <p>
+        Can you keep the network running smoothly?
+    </p>
+
+</header>
+
+
+<div class="game-container">
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <div class="dashboard">
+
+
+        <div class="stat">
+
+            <h3>BANDWIDTH</h3>
+
+            <p id="bandwidthValue">
+                50 Mbps
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>NETWORK DEMAND</h3>
+
+            <p id="demandValue">
+                20 Mbps
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>CONGESTION</h3>
+
+            <p id="congestionValue">
+                0%
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>SCORE</h3>
+
+            <p id="scoreValue">
+                0
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         NETWORK
+    ========================= -->
+
+    <div class="network">
+
+
+        <div class="network-title">
+
+            INTERNET NETWORK
+
+        </div>
+
+
+
+        <!-- PHONE -->
+
+        <div class="device phone">
+
+            📱
+
+            <span>
+                Phone
+            </span>
+
+        </div>
+
+
+
+        <!-- LAPTOP -->
+
+        <div class="device laptop">
+
+            💻
+
+            <span>
+                Laptop
+            </span>
+
+        </div>
+
+
+
+        <!-- TV -->
+
+        <div class="device tv">
+
+            📺
+
+            <span>
+                Smart TV
+            </span>
+
+        </div>
+
+
+
+        <!-- INTERNET HIGHWAY -->
+
+        <div class="highway">
+
+            <div class="road-line"></div>
+
+        </div>
+
+
+
+        <!-- SERVER -->
+
+        <div class="server">
+
+            🖥️
+
+            <span>
+                SERVER
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         CONTROLS
+    ========================= -->
+
+    <div class="controls">
+
+
+        <!-- NETWORK CONTROLS -->
+
+        <div class="control-panel">
+
+            <h2>
+                Network Controls
+            </h2>
+
+
+            <label>
+
+                Bandwidth:
+
+                <strong id="bandwidthSliderValue">
+                    50 Mbps
+                </strong>
+
+            </label>
+
+
+            <input
+                type="range"
+                id="bandwidthSlider"
+                min="10"
+                max="100"
+                value="50"
+            >
+
+
+            <button
+                onclick="addDemand()"
+            >
+                + Add Traffic
+            </button>
+
+
+            <button
+                class="danger"
+                onclick="removeDemand()"
+            >
+                - Remove Traffic
+            </button>
+
+        </div>
+
+
+
+        <!-- GAME CONTROLS -->
+
+        <div class="control-panel">
+
+            <h2>
+                Game Controls
+            </h2>
+
+
+            <button
+                class="success"
+                onclick="startGame()"
+            >
+                Start Game
+            </button>
+
+
+            <button
+                onclick="pauseGame()"
+            >
+                Pause
+            </button>
+
+
+            <button
+                class="danger"
+                onclick="resetGame()"
+            >
+                Reset
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         STATUS
+    ========================= -->
+
+    <div
+        class="status smooth"
+        id="status"
+    >
+
+        Press START GAME to begin.
+
+    </div>
+
+
+
+    <!-- =========================
+         EXPLANATION
+    ========================= -->
+
+    <div class="explanation">
+
+        <h2>
+            What is happening?
+        </h2>
+
+
+        <p>
+
+            Bandwidth is the maximum amount of
+            data that a network connection can
+            transfer in a given amount of time.
+
+            When network demand stays below the
+            available bandwidth, data can move
+            efficiently.
+
+            When demand becomes greater than the
+            available bandwidth, congestion occurs
+            and data begins moving more slowly.
+
+        </p>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+    /* =========================
+       GAME VARIABLES
+    ========================= */
+
+    let bandwidth = 50;
+
+    let demand = 20;
+
+    let congestion = 0;
+
+    let score = 0;
+
+    let gameRunning = false;
+
+    let gameInterval;
+
+    let packetInterval;
+
+
+
+    /* =========================
+       HTML ELEMENTS
+    ========================= */
+
+    const bandwidthValue =
+        document.getElementById(
+            "bandwidthValue"
+        );
+
+
+    const demandValue =
+        document.getElementById(
+            "demandValue"
+        );
+
+
+    const congestionValue =
+        document.getElementById(
+            "congestionValue"
+        );
+
+
+    const scoreValue =
+        document.getElementById(
+            "scoreValue"
+        );
+
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+
+    const bandwidthSlider =
+        document.getElementById(
+            "bandwidthSlider"
+        );
+
+
+    const bandwidthSliderValue =
+        document.getElementById(
+            "bandwidthSliderValue"
+        );
+
+
+    const network =
+        document.querySelector(
+            ".network"
+        );
+
+
+
+    /* =========================
+       BANDWIDTH SLIDER
+    ========================= */
+
+    bandwidthSlider.addEventListener(
+        "input",
+        function () {
+
+            bandwidth =
+                Number(this.value);
+
+
+            bandwidthSliderValue.textContent =
+                bandwidth + " Mbps";
+
+
+            updateGame();
+
+        }
+    );
+
+
+
+    /* =========================
+       ADD NETWORK DEMAND
+    ========================= */
+
+    function addDemand() {
+
+        demand += 5;
+
+
+        if (demand > 120) {
+
+            demand = 120;
+
+        }
+
+
+        updateGame();
+
+    }
+
+
+
+    /* =========================
+       REMOVE NETWORK DEMAND
+    ========================= */
+
+    function removeDemand() {
+
+        demand -= 5;
+
+
+        if (demand < 0) {
+
+            demand = 0;
+
+        }
+
+
+        updateGame();
+
+    }
+
+
+
+    /* =========================
+       CALCULATE CONGESTION
+    ========================= */
+
+    function calculateCongestion() {
+
+        if (demand <= bandwidth) {
+
+            congestion = 0;
+
+        }
+
+        else {
+
+            congestion =
+                Math.round(
+                    (
+                        (demand - bandwidth)
+                        / bandwidth
+                    ) * 100
+                );
+
+        }
+
+
+        if (congestion > 100) {
+
+            congestion = 100;
+
+        }
+
+    }
+
+
+
+    /* =========================
+       UPDATE GAME
+    ========================= */
+
+    function updateGame() {
+
+        calculateCongestion();
+
+
+        bandwidthValue.textContent =
+            bandwidth + " Mbps";
+
+
+        demandValue.textContent =
+            demand + " Mbps";
+
+
+        congestionValue.textContent =
+            congestion + "%";
+
+
+        scoreValue.textContent =
+            score;
+
+
+
+        /* =========================
+           REMOVE OLD STATUS COLOURS
+        ========================= */
+
+        status.classList.remove(
+            "smooth",
+            "light",
+            "moderate",
+            "heavy"
+        );
+
+
+
+        /* =========================
+           STATUS MESSAGES
+        ========================= */
+
+
+        if (demand === 0) {
+
+            status.textContent =
+                "NO TRAFFIC — Add some network traffic.";
+
+            status.classList.add(
+                "smooth"
+            );
+
+        }
+
+
+        else if (congestion === 0) {
+
+            status.textContent =
+                "NETWORK CLEAR — Data is moving smoothly.";
+
+            status.classList.add(
+                "smooth"
+            );
+
+        }
+
+
+        else if (congestion < 30) {
+
+            status.textContent =
+                "LIGHT CONGESTION — The network is getting busy.";
+
+            status.classList.add(
+                "light"
+            );
+
+        }
+
+
+        else if (congestion < 70) {
+
+            status.textContent =
+                "MODERATE CONGESTION — Data is slowing down.";
+
+            status.classList.add(
+                "moderate"
+            );
+
+        }
+
+
+        else {
+
+            status.textContent =
+                "HEAVY CONGESTION — EMERGENCY! The network is overloaded!";
+
+            status.classList.add(
+                "heavy"
+            );
+
+        }
+
+    }
+
+
+
+    /* =========================
+       CREATE DATA PACKET
+    ========================= */
+
+    function createPacket() {
+
+        if (!gameRunning) {
+
+            return;
+
+        }
+
+
+        const packet =
+            document.createElement(
+                "div"
+            );
+
+
+        packet.classList.add(
+            "packet"
+        );
+
+
+        network.appendChild(
+            packet
+        );
+
+
+
+        /* Starting position */
+
+        let x = 125;
+
+
+        let y =
+            215 +
+            Math.random() * 35;
+
+
+        packet.style.left =
+            x + "px";
+
+
+        packet.style.top =
+            y + "px";
+
+
+
+        /* =========================
+           PACKET SPEED
+        ========================= */
+
+        let speed;
+
+
+        if (demand <= bandwidth) {
+
+            speed = 4;
+
+        }
+
+
+        else {
+
+            speed =
+                Math.max(
+                    1,
+                    4 - congestion / 25
+                );
+
+        }
+
+
+
+        /* =========================
+           MOVE PACKET
+        ========================= */
+
+        const movement =
+            setInterval(
+                function () {
+
+                    x += speed;
+
+
+                    packet.style.left =
+                        x + "px";
+
+
+
+                    /* Packet reaches server */
+
+                    if (
+                        x >
+                        network.clientWidth - 170
+                    ) {
+
+                        clearInterval(
+                            movement
+                        );
+
+
+                        packet.remove();
+
+
+                        score += 10;
+
+
+                        updateGame();
+
+                    }
+
+                },
+                20
+            );
+
+
+
+        /* Safety removal */
+
+        setTimeout(
+            function () {
+
+                clearInterval(
+                    movement
+                );
+
+
+                if (
+                    packet.parentNode
+                ) {
+
+                    packet.remove();
+
+                }
+
+            },
+            10000
+        );
+
+    }
+
+
+
+    /* =========================
+       START GAME
+    ========================= */
+
+    function startGame() {
+
+        if (gameRunning) {
+
+            return;
+
+        }
+
+
+        gameRunning = true;
+
+
+        status.textContent =
+            "NETWORK ONLINE — Manage the traffic!";
+
+
+        status.classList.remove(
+            "smooth",
+            "light",
+            "moderate",
+            "heavy"
+        );
+
+
+        packetInterval =
+            setInterval(
+                createPacket,
+                Math.max(
+                    150,
+                    900 - demand * 6
+                )
+            );
+
+
+
+        gameInterval =
+            setInterval(
+                function () {
+
+
+                    /* Random traffic increase */
+
+                    if (
+                        Math.random() < 0.35
+                    ) {
+
+                        demand += 5;
+
+
+                        if (
+                            demand > 120
+                        ) {
+
+                            demand = 120;
+
+                        }
+
+                    }
+
+
+
+                    /* =========================
+                       SCORING
+                    ========================= */
+
+                    if (
+                        demand <= bandwidth
+                    ) {
+
+                        score += 2;
+
+                    }
+
+                    else {
+
+                        score -= 1;
+
+
+                        if (score < 0) {
+
+                            score = 0;
+
+                        }
+
+                    }
+
+
+                    updateGame();
+
+                },
+                1000
+            );
+
+    }
+
+
+
+    /* =========================
+       PAUSE GAME
+    ========================= */
+
+    function pauseGame() {
+
+        gameRunning = false;
+
+
+        clearInterval(
+            packetInterval
+        );
+
+
+        clearInterval(
+            gameInterval
+        );
+
+
+        status.textContent =
+            "GAME PAUSED";
+
+
+        status.classList.remove(
+            "smooth",
+            "light",
+            "moderate",
+            "heavy"
+        );
+
+    }
+
+
+
+    /* =========================
+       RESET GAME
+    ========================= */
+
+    function resetGame() {
+
+        gameRunning = false;
+
+
+        clearInterval(
+            packetInterval
+        );
+
+
+        clearInterval(
+            gameInterval
+        );
+
+
+        bandwidth = 50;
+
+        demand = 20;
+
+        congestion = 0;
+
+        score = 0;
+
+
+
+        bandwidthSlider.value =
+            bandwidth;
+
+
+        bandwidthSliderValue.textContent =
+            bandwidth + " Mbps";
+
+
+
+        /* Remove all packets */
+
+        document
+            .querySelectorAll(
+                ".packet"
+            )
+            .forEach(
+                packet =>
+                    packet.remove()
+            );
+
+
+
+        updateGame();
+
+
+        status.textContent =
+            "Press START GAME to begin.";
+
+
+        status.classList.add(
+            "smooth"
+        );
+
+    }
+
+
+
+    /* =========================
+       INITIAL DISPLAY
+    ========================= */
+
+    updateGame();
+
+
+</script>
+
+
+</body>
+
+</html>
