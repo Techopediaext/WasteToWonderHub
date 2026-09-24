@@ -52,49 +52,10 @@
             color: #b8c7d9;
             font-size: 16px;
         }
-.header-content {
-    display: flex;
-    align-items: center;
-  /*  justify-content: center; */
-    gap: 15px;
-    justify-content: space-between;
-}
 
-.logos {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logos img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-}
-.left-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.left-header img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-}
-.title-area {
-    text-align: left;
-}
-.right-logo {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-}
-
-
-  /*      header {
+header {
     padding: 15px 25px;
-    min-height: 100px;
+  /*  min-height: 100px;*/
     box-sizing: border-box;
 }
 
@@ -105,13 +66,13 @@
     justify-content: space-between;
 }
 
-.left-header {
+.title-group {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
-.left-header img {
+.title-group img {
     width: 70px;
     height: 70px;
     object-fit: contain;
@@ -125,7 +86,7 @@
     width: 70px;
     height: 70px;
     object-fit: contain;
-}*/
+}
         
         /* =========================
            MAIN GAME CONTAINER
@@ -650,18 +611,22 @@
 <body>
 <header>
     <div class="header-content">
-        <div class="logos">
+
+        <!-- Left side: Logo 1 + Game Title -->
+        <div class="title-group">
             <img src="MazInnovisionLogo.png" alt="MAZ Innovision">
+
+            <div class="title-area">
+                <h1>⚡ BANDWIDTH RUSH</h1>
+                <p>Can you keep the network running smoothly?</p>
+            </div>
         </div>
 
-        <div class="title-area">
-            <h1>⚡ BANDWIDTH RUSH</h1>
-            <p>Can you keep the network running smoothly?</p>
-        </div>
+        <!-- Right corner: Logo 2 -->
         <img class="right-logo" src="schoollogo.png" alt="MAZ International School">
+
     </div>
 </header>
-
 <!-- <header>
 
     <h1>⚡ BANDWIDTH RUSH</h1>
