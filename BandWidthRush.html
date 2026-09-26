@@ -108,7 +108,7 @@ header {
 
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -153,6 +153,122 @@ header {
 
         #scoreValue {
             color: #90be6d;
+        }
+
+
+        #timerValue {
+            color: #4cc9f0;
+        }
+
+        .timer-stat.warning #timerValue {
+            color: #f9c74f;
+        }
+
+        .timer-stat.critical #timerValue {
+            color: #f94144;
+            animation: timerPulse 0.8s infinite alternate;
+        }
+
+        .game-ended {
+            animation: finalHighlight 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes timerPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+        @keyframes finalHighlight {
+            from { box-shadow: 0 0 0 rgba(249, 199, 79, 0); }
+            to { box-shadow: 0 0 25px rgba(249, 199, 79, 0.75); }
+        }
+
+        #qualityValue {
+            color: #4cc9f0;
+        }
+
+
+        .control-help {
+            color: #b8c7d9;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+
+        .quality-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 6px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #102a45;
+            border-radius: 8px;
+            border: 1px solid #21466e;
+        }
+
+
+        .quality-row span {
+            color: #cfe5ff;
+            font-size: 14px;
+        }
+
+
+        .quality-row strong {
+            color: #90be6d;
+        }
+
+
+        .quality-button {
+            width: 100%;
+            margin: 0;
+            background: #4cc9f0;
+            color: #06111d;
+            padding: 9px 12px;
+            font-size: 12px;
+        }
+
+
+        .quality-button.problem {
+            background: #f9c74f;
+        }
+
+
+        .quality-meter {
+            margin-top: 15px;
+        }
+
+
+        .quality-meter-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 7px;
+            color: #cfe5ff;
+            font-size: 13px;
+        }
+
+
+        #qualityControlValue {
+            color: #90be6d;
+        }
+
+
+        .quality-bar {
+            width: 100%;
+            height: 12px;
+            background: #172f4b;
+            border: 1px solid #21466e;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+
+        .quality-bar-fill {
+            width: 100%;
+            height: 100%;
+            background: #90be6d;
+            transition: width 0.3s ease, background 0.3s ease;
         }
 
 
@@ -587,9 +703,15 @@ header {
         @media (max-width: 800px) {
 
             .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-                grid-template-columns:
-                    repeat(2, 1fr);
+            .stat {
+                padding: 14px;
+            }
+
+            .stat p {
+                font-size: 23px;
             }
 
 
@@ -606,12 +728,96 @@ header {
 
         }
 
-    </style>
+    
+/* Game Over Popup */
+#gameOverModal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(5px);
+}
+#gameOverModal.show { display: flex; }
+.game-over-card {
+    width: min(92vw, 520px);
+    padding: 34px 30px;
+    border: 2px solid #ff4d4d;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #101827, #182235);
+    box-shadow: 0 0 35px rgba(255, 77, 77, 0.45);
+    text-align: center;
+    animation: gameOverPop 0.35s ease-out;
+}
+.game-over-card h2 {
+    margin: 0 0 10px;
+    color: #ff5c5c;
+    font-size: 2rem;
+}
+.game-over-card .final-label {
+    margin: 8px 0 4px;
+    color: #9fb2c8;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.game-over-card #finalScore {
+    margin: 0 0 18px;
+    color: #61dafb;
+    font-size: 3.2rem;
+    font-weight: 800;
+    text-shadow: 0 0 18px rgba(97, 218, 251, 0.55);
+}
+.game-over-card #finalStatus {
+    margin: 0 auto 24px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: rgba(255, 77, 77, 0.12);
+    border: 1px solid rgba(255, 77, 77, 0.5);
+    color: #fff;
+    font-weight: 700;
+}
+#closeGameOver {
+    border: 0;
+    border-radius: 10px;
+    padding: 12px 26px;
+    background: #61dafb;
+    color: #07111d;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+#closeGameOver:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(97, 218, 251, 0.55);
+}
+@keyframes gameOverPop {
+    from { opacity: 0; transform: scale(0.82); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+</style>
 
 </head>
 
 
 <body>
+
+<!-- Game Over Popup -->
+<div id="gameOverModal" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle">
+    <div class="game-over-card">
+        <h2 id="gameOverTitle">⏱️ TIME'S UP!</h2>
+        <p class="final-label">Final Score</p>
+        <p id="finalScore">0</p>
+        <p class="final-label">Final Status</p>
+        <p id="finalStatus">Game Over</p>
+        <button id="closeGameOver" type="button">PLAY AGAIN</button>
+    </div>
+</div>
+
 <header>
     <div class="header-content">
 
@@ -686,10 +892,31 @@ header {
 
         <div class="stat">
 
+            <h3>CONNECTION QUALITY</h3>
+
+            <p id="qualityValue">
+                100%
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
             <h3>SCORE</h3>
 
             <p id="scoreValue">
                 0
+            </p>
+
+        </div>
+
+        <div class="stat timer-stat" id="timerStat">
+
+            <h3>TIME LEFT</h3>
+
+            <p id="timerValue">
+                1:00
             </p>
 
         </div>
@@ -780,7 +1007,18 @@ header {
 
     </div>
 
+    <!-- =========================
+         STATUS
+    ========================= -->
 
+    <div
+        class="status smooth"
+        id="status"
+    >
+
+        Press START GAME to begin.
+
+    </div>
 
     <!-- =========================
          CONTROLS
@@ -821,7 +1059,7 @@ header {
             <button
                 onclick="addDemand()"
             >
-                + Add Traffic
+                + Add Device
             </button>
 
 
@@ -829,11 +1067,88 @@ header {
                 class="danger"
                 onclick="removeDemand()"
             >
-                - Remove Traffic
+                - Remove Device
             </button>
 
         </div>
 
+
+        <!-- CONNECTION QUALITY CONTROLS -->
+
+        <div class="control-panel">
+
+            <h2>
+                Connection Quality
+            </h2>
+
+            <p class="control-help">
+                Fix connection problems to improve packet speed.
+            </p>
+
+
+            <div class="quality-row">
+                <span>
+                    Cable:
+                    <strong id="cableStatus">GOOD</strong>
+                </span>
+
+                <button
+                    id="cableButton"
+                    class="quality-button"
+                    onclick="toggleCable()"
+                >
+                    Use Old / Damaged Cable
+                </button>
+            </div>
+
+
+            <div class="quality-row">
+                <span>
+                    Wireless Distance:
+                    <strong id="distanceStatus">NEAR</strong>
+                </span>
+
+                <button
+                    id="distanceButton"
+                    class="quality-button"
+                    onclick="toggleDistance()"
+                >
+                    Move Device Far Away
+                </button>
+            </div>
+
+
+            <div class="quality-row">
+                <span>
+                    Interference:
+                    <strong id="interferenceStatus">LOW</strong>
+                </span>
+
+                <button
+                    id="interferenceButton"
+                    class="quality-button"
+                    onclick="toggleInterference()"
+                >
+                    Add Interference
+                </button>
+            </div>
+
+
+            <div class="quality-meter">
+                <div class="quality-meter-label">
+                    <span>Overall Connection Quality</span>
+                    <strong id="qualityControlValue">100%</strong>
+                </div>
+
+                <div class="quality-bar">
+                    <div
+                        id="qualityBarFill"
+                        class="quality-bar-fill"
+                    ></div>
+                </div>
+            </div>
+
+        </div>
 
 
         <!-- GAME CONTROLS -->
@@ -875,7 +1190,7 @@ header {
 
     <!-- =========================
          STATUS
-    ========================= -->
+    ========================= 
 
     <div
         class="status smooth"
@@ -884,7 +1199,7 @@ header {
 
         Press START GAME to begin.
 
-    </div>
+    </div>-->
 
 
 
@@ -913,6 +1228,12 @@ header {
             available bandwidth, congestion occurs
             and data begins moving more slowly.
 
+            Connection quality also affects performance.
+            Old or damaged cables, devices that are too
+            far from the router, and nearby interference
+            can reduce connection quality and slow data
+            transfer.
+
         </p>
 
     </div>
@@ -937,12 +1258,22 @@ header {
 
     let score = 0;
 
+    // Connection quality factors
+    let cableQuality = 100;
+    let distanceQuality = 100;
+    let interferenceQuality = 100;
+
     let gameRunning = false;
 
     let gameInterval;
 
     let packetInterval;
 
+    let timerInterval;
+
+    let qualityEventTimeout;
+
+    let timeLeft = 60;
 
 
     /* =========================
@@ -970,6 +1301,70 @@ header {
     const scoreValue =
         document.getElementById(
             "scoreValue"
+        );
+
+
+    const timerValue =
+        document.getElementById(
+            "timerValue"
+        );
+
+    const timerStat =
+        document.getElementById(
+            "timerStat"
+        );
+
+    const qualityValue =
+        document.getElementById(
+            "qualityValue"
+        );
+
+
+    const cableStatus =
+        document.getElementById(
+            "cableStatus"
+        );
+
+
+    const distanceStatus =
+        document.getElementById(
+            "distanceStatus"
+        );
+
+
+    const interferenceStatus =
+        document.getElementById(
+            "interferenceStatus"
+        );
+
+
+    const cableButton =
+        document.getElementById(
+            "cableButton"
+        );
+
+
+    const distanceButton =
+        document.getElementById(
+            "distanceButton"
+        );
+
+
+    const interferenceButton =
+        document.getElementById(
+            "interferenceButton"
+        );
+
+
+    const qualityControlValue =
+        document.getElementById(
+            "qualityControlValue"
+        );
+
+
+    const qualityBarFill =
+        document.getElementById(
+            "qualityBarFill"
         );
 
 
@@ -1060,6 +1455,265 @@ header {
 
 
         updateGame();
+
+    }
+
+
+
+
+    /* =========================
+       CONNECTION QUALITY
+    ========================= */
+
+    function calculateConnectionQuality() {
+
+        return Math.round(
+            (
+                cableQuality +
+                distanceQuality +
+                interferenceQuality
+            ) / 3
+        );
+
+    }
+
+
+    function updateQualityDisplay() {
+
+        const quality =
+            calculateConnectionQuality();
+
+
+        qualityValue.textContent =
+            quality + "%";
+
+
+        qualityControlValue.textContent =
+            quality + "%";
+
+
+        qualityBarFill.style.width =
+            quality + "%";
+
+
+        if (quality >= 80) {
+
+            qualityBarFill.style.background =
+                "#90be6d";
+
+            qualityControlValue.style.color =
+                "#90be6d";
+
+        }
+
+        else if (quality >= 50) {
+
+            qualityBarFill.style.background =
+                "#f9c74f";
+
+            qualityControlValue.style.color =
+                "#f9c74f";
+
+        }
+
+        else {
+
+            qualityBarFill.style.background =
+                "#f94144";
+
+            qualityControlValue.style.color =
+                "#f94144";
+
+        }
+
+
+        if (cableQuality === 100) {
+
+            cableStatus.textContent = "GOOD";
+
+            cableStatus.style.color =
+                "#90be6d";
+
+            cableButton.textContent =
+                "No Cable Problem";
+
+            cableButton.classList.remove(
+                "problem"
+            );
+
+        }
+
+        else {
+
+            cableStatus.textContent =
+                "OLD / DAMAGED";
+
+            cableStatus.style.color =
+                "#f94144";
+
+            cableButton.textContent =
+                "Replace Cable";
+
+            cableButton.classList.add(
+                "problem"
+            );
+
+        }
+
+
+        if (distanceQuality === 100) {
+
+            distanceStatus.textContent =
+                "NEAR";
+
+            distanceStatus.style.color =
+                "#90be6d";
+
+            distanceButton.textContent =
+                "No Distance Problem";
+
+            distanceButton.classList.remove(
+                "problem"
+            );
+
+        }
+
+        else {
+
+            distanceStatus.textContent =
+                "TOO FAR";
+
+            distanceStatus.style.color =
+                "#f94144";
+
+            distanceButton.textContent =
+                "Move Device Closer";
+
+            distanceButton.classList.add(
+                "problem"
+            );
+
+        }
+
+
+        if (interferenceQuality === 100) {
+
+            interferenceStatus.textContent =
+                "LOW";
+
+            interferenceStatus.style.color =
+                "#90be6d";
+
+            interferenceButton.textContent =
+                "No Interference Problem";
+
+            interferenceButton.classList.remove(
+                "problem"
+            );
+
+        }
+
+        else {
+
+            interferenceStatus.textContent =
+                "HIGH";
+
+            interferenceStatus.style.color =
+                "#f94144";
+
+            interferenceButton.textContent =
+                "Remove Interference";
+
+            interferenceButton.classList.add(
+                "problem"
+            );
+
+        }
+
+    }
+
+
+    function scheduleQualityEvent() {
+
+        clearTimeout(qualityEventTimeout);
+
+        if (!gameRunning) return;
+
+        const delay = 10000 + Math.random() * 10000;
+
+        qualityEventTimeout = setTimeout(function () {
+
+            if (!gameRunning) return;
+
+            const availableProblems = [];
+
+            if (cableQuality === 100) availableProblems.push("cable");
+            if (distanceQuality === 100) availableProblems.push("distance");
+            if (interferenceQuality === 100) availableProblems.push("interference");
+
+            if (availableProblems.length === 0) {
+                scheduleQualityEvent();
+                return;
+            }
+
+            const problem =
+                availableProblems[Math.floor(Math.random() * availableProblems.length)];
+
+            if (problem === "cable") {
+                cableQuality = 45;
+            }
+            else if (problem === "distance") {
+                distanceQuality = 40;
+            }
+            else {
+                interferenceQuality = 40;
+            }
+
+            updateQualityDisplay();
+            updateGame();
+
+            // Wait for the player to repair the problem before
+            // introducing another connection-quality fault.
+
+        }, delay);
+    }
+
+
+    function toggleCable() {
+
+        // This button now only repairs a fault created by the game.
+        if (cableQuality < 100) {
+            cableQuality = 100;
+            updateQualityDisplay();
+            updateGame();
+            scheduleQualityEvent();
+        }
+
+    }
+
+
+    function toggleDistance() {
+
+        // This button now only repairs a fault created by the game.
+        if (distanceQuality < 100) {
+            distanceQuality = 100;
+            updateQualityDisplay();
+            updateGame();
+            scheduleQualityEvent();
+        }
+
+    }
+
+
+    function toggleInterference() {
+
+        // This button now only repairs a fault created by the game.
+        if (interferenceQuality < 100) {
+            interferenceQuality = 100;
+            updateQualityDisplay();
+            updateGame();
+            scheduleQualityEvent();
+        }
 
     }
 
@@ -1203,6 +1857,32 @@ header {
 
         }
 
+
+        const connectionQuality =
+            calculateConnectionQuality();
+
+
+        if (
+            connectionQuality < 50 &&
+            congestion < 70
+        ) {
+
+            status.textContent =
+                "POOR CONNECTION — Check the cable, distance and interference.";
+
+            status.classList.remove(
+                "smooth",
+                "light",
+                "moderate",
+                "heavy"
+            );
+
+            status.classList.add(
+                "moderate"
+            );
+
+        }
+
     }
 
 
@@ -1281,6 +1961,21 @@ header {
         }
 
 
+        /* =========================
+           CONNECTION QUALITY + SPEED
+        =========================
+           Quality directly affects packet speed.
+
+           100% quality = 100% speed
+           85% quality = 85% speed
+           70% quality = 70% speed
+           55% quality = 55% speed
+
+           The speed is recalculated while the
+           packet is moving, so changing a quality
+           control immediately affects packets
+           already on the highway.
+        */
 
         /* =========================
            MOVE PACKET
@@ -1290,7 +1985,38 @@ header {
             setInterval(
                 function () {
 
-                    x += speed;
+                    let currentSpeed;
+
+                    if (demand <= bandwidth) {
+
+                        currentSpeed = 4;
+
+                    } else {
+
+                        currentSpeed =
+                            Math.max(
+                                1,
+                                4 - congestion / 25
+                            );
+
+                    }
+
+                    const connectionQuality =
+                        calculateConnectionQuality();
+
+                    const qualityMultiplier =
+                        connectionQuality / 100;
+
+                    currentSpeed *= qualityMultiplier;
+
+                    /* Never let a packet completely stop. */
+                    currentSpeed =
+                        Math.max(
+                            0.5,
+                            currentSpeed
+                        );
+
+                    x += currentSpeed;
 
 
                     packet.style.left =
@@ -1353,10 +2079,106 @@ header {
 
 
     /* =========================
+       TIMER
+    ========================= */
+
+    function updateTimerDisplay() {
+
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        timerValue.textContent =
+            minutes + ":" +
+            String(seconds).padStart(2, "0");
+
+        timerStat.classList.remove("warning", "critical");
+
+        if (timeLeft <= 10) {
+            timerStat.classList.add("critical");
+        } else if (timeLeft <= 30) {
+            timerStat.classList.add("warning");
+        }
+    }
+
+
+    function endGame() {
+
+        gameRunning = false;
+
+        clearInterval(packetInterval);
+        clearInterval(gameInterval);
+        clearInterval(timerInterval);
+
+        timerInterval = null;
+        packetInterval = null;
+        gameInterval = null;
+
+        document
+            .querySelectorAll(".packet")
+            .forEach(packet => packet.remove());
+
+        scoreValue.classList.add("game-ended");
+
+        updateGame();
+
+        status.classList.remove(
+            "smooth",
+            "light",
+            "moderate",
+            "heavy"
+        );
+
+        status.classList.add("heavy");
+        status.textContent =
+            "TIME'S UP! FINAL SCORE: " +
+            score +
+            " — GAME OVER";
+
+        finalScore.textContent = score;
+        finalStatus.textContent = status.textContent;
+        gameOverModal.classList.add("show");
+        closeGameOver.focus();
+    }
+
+
+    function startTimer() {
+
+        clearInterval(timerInterval);
+
+        timerInterval = setInterval(function () {
+
+            if (!gameRunning) return;
+
+            timeLeft--;
+            updateTimerDisplay();
+
+            if (timeLeft <= 0) {
+                timeLeft = 0;
+                updateTimerDisplay();
+                endGame();
+            }
+
+        }, 1000);
+    }
+
+
+    /* =========================
        START GAME
     ========================= */
 
-    function startGame() {
+    closeGameOver.addEventListener("click", function () {
+    gameOverModal.classList.remove("show");
+    resetGame();
+    startGame();
+});
+
+gameOverModal.addEventListener("click", function (event) {
+    if (event.target === gameOverModal) {
+        gameOverModal.classList.remove("show");
+    }
+});
+
+function startGame() {
 
         if (gameRunning) {
 
@@ -1367,9 +2189,17 @@ header {
 
         gameRunning = true;
 
+        if (timeLeft <= 0) {
+            timeLeft = 60;
+        }
+
+        updateTimerDisplay();
+        startTimer();
+        scheduleQualityEvent();
+
 
         status.textContent =
-            "NETWORK ONLINE — Manage the traffic!";
+            "NETWORK ONLINE — Manage traffic and connection quality!";
 
 
         status.classList.remove(
@@ -1427,6 +2257,14 @@ header {
 
                         score += 2;
 
+                        if (
+                            calculateConnectionQuality() >= 80
+                        ) {
+
+                            score += 1;
+
+                        }
+
                     }
 
                     else {
@@ -1471,9 +2309,18 @@ header {
             gameInterval
         );
 
+        clearInterval(
+            timerInterval
+        );
+
+        clearTimeout(qualityEventTimeout);
+        qualityEventTimeout = null;
+
 
         status.textContent =
-            "GAME PAUSED";
+            "GAME PAUSED — " +
+            timerValue.textContent +
+            " remaining";
 
 
         status.classList.remove(
@@ -1492,6 +2339,7 @@ header {
     ========================= */
 
     function resetGame() {
+        gameOverModal.classList.remove("show");
 
         gameRunning = false;
 
@@ -1505,6 +2353,17 @@ header {
             gameInterval
         );
 
+        clearInterval(
+            timerInterval
+        );
+
+        clearTimeout(qualityEventTimeout);
+        qualityEventTimeout = null;
+        timerInterval = null;
+        timeLeft = 60;
+
+        scoreValue.classList.remove("game-ended");
+
 
         bandwidth = 50;
 
@@ -1513,6 +2372,16 @@ header {
         congestion = 0;
 
         score = 0;
+
+        cableQuality = 100;
+
+        distanceQuality = 100;
+
+        interferenceQuality = 100;
+
+        cableQuality = 100;
+        distanceQuality = 100;
+        interferenceQuality = 100;
 
 
 
@@ -1538,6 +2407,7 @@ header {
 
 
 
+        updateTimerDisplay();
         updateGame();
 
 
@@ -1557,6 +2427,8 @@ header {
        INITIAL DISPLAY
     ========================= */
 
+    updateQualityDisplay();
+    updateTimerDisplay();
     updateGame();
 
 
